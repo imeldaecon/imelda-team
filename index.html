@@ -52,20 +52,26 @@ html, body {
   color: var(--color-text); line-height: 1.15; margin-bottom: 24px;
 }
 
-/* ── PROJECTS ── */
+/* PROJECTS */
 .projects-list { display: flex; flex-direction: column; gap: 16px; }
 .project-item {
-  background: var(--color-surface);
+  position: relative; overflow: hidden;
   border: 1px solid var(--color-border);
   border-left: 3px solid var(--color-primary);
   border-radius: var(--radius-lg);
-  padding: 22px 26px;
+  padding: 14px 18px;
   box-shadow: var(--shadow-sm);
   transition: box-shadow var(--transition), transform var(--transition);
 }
 .project-item:hover { box-shadow: var(--shadow-md); transform: translateX(3px); }
+.map-bg {
+  position: absolute; inset: 0;
+  opacity: 0.25;
+  pointer-events: none;
+}
+.project-content { position: relative; z-index: 1; }
 .project-header {
-  display: flex; align-items: center; gap: 12px; margin-bottom: 12px; flex-wrap: wrap;
+  display: flex; align-items: center; gap: 12px; margin-bottom: 8px; flex-wrap: wrap;
 }
 .project-num {
   font-size: 0.72rem; font-weight: 700; color: var(--color-primary);
@@ -80,15 +86,14 @@ html, body {
   background: #ffffff; border: 1px solid var(--color-border);
   padding: 3px 10px; border-radius: var(--radius-full); white-space: nowrap;
 }
-.project-location .flag { font-size: 1rem; line-height: 1; }
 .project-abstract {
   font-size: 0.91rem; color: var(--color-text-muted); line-height: 1.75;
 }
 
-/* ── DIVIDER ── */
+/* DIVIDER */
 .divider { border: none; border-top: 1px solid var(--color-divider); margin: 0 0 56px; }
 
-/* ── TEAM ── */
+/* TEAM */
 .team-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -111,13 +116,20 @@ html, body {
   flex-shrink: 0;
   border: 2px solid var(--color-primary-light);
 }
-.card-info { display: flex; flex-direction: column; gap: 3px; }
+.avatar {
+  width: 68px; height: 68px; border-radius: var(--radius-full);
+  background: var(--color-primary-light); flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; font-weight: 700; color: var(--color-primary);
+}
+.card-info { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
 .member-name {
   font-family: var(--font-display);
-  font-size: 1.1rem; color: var(--color-text); line-height: 1.2;
+  font-size: 1rem; color: var(--color-text); line-height: 1.2;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
 }
 .member-role {
-  font-size: 0.8rem; font-weight: 600; color: var(--color-primary);
+  font-size: 0.78rem; font-weight: 600; color: var(--color-primary);
   background: var(--color-primary-light); display: inline-block;
   padding: 2px 11px; border-radius: var(--radius-full); margin: 3px 0;
 }
@@ -126,23 +138,53 @@ html, body {
   font-size: 0.71rem; color: var(--color-text-faint);
   display: flex; align-items: center; gap: 3px; margin-top: 1px;
 }
+
+/* FUNDING */
+.funding-row {
+  display: flex; flex-wrap: wrap; align-items: flex-start; gap: 32px;
+}
+.funding-col { flex: 1; min-width: 200px; }
+.funding-col-title {
+  font-family: var(--font-display);
+  font-size: 1rem; color: var(--color-text); margin-bottom: 14px;
+}
+.logos-row {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 20px;
+}
+.logo-item {
+  display: flex; flex-direction: column; align-items: center; gap: 5px;
+}
+.logo-item img {
+  height: 32px; object-fit: contain; opacity: 0.85;
+}
+.logo-item span {
+  font-size: 0.68rem; color: #aaa; font-family: 'DM Sans', sans-serif;
+  text-align: center; max-width: 100px;
+}
+.funding-divider {
+  width: 1px; background: var(--color-divider);
+  align-self: stretch; min-height: 60px;
+}
+
 @media (max-width: 540px) {
   .page { padding: 32px 16px 52px; }
   .member-card { padding: 16px 18px; gap: 14px; }
-  .card-photo { width: 54px; height: 54px; }
+  .card-photo, .avatar { width: 54px; height: 54px; }
   .project-location { display: none; }
+  .team-grid { grid-template-columns: 1fr; }
+  .funding-divider { display: none; }
 }
 </style>
 </head>
 <body>
 <div class="page">
 
-  <!-- ── PROJECTS ── -->
+  <!-- PROJECTS -->
   <div class="section-block">
     <h2 class="section-title">On-going Projects</h2>
     <div class="projects-list">
 
-     <div class="project-item">
+      <div class="project-item">
         <div class="map-bg" style="background-color:#c8dfc8;"></div>
         <div class="project-content">
           <div class="project-header">
@@ -150,8 +192,7 @@ html, body {
             <span class="project-name">Surviving with Interruptions: Firm Adaptation to Electricity Rationing</span>
             <span class="project-location">🇿🇦 South Africa</span>
           </div>
-          <p class="project-abstract">Estimates how firms across sectors adjust production, and investment decisions in response to scheduled electricity rationing.</p>
-          <!-- FULL ABSTRACT STORED HERE -->
+          <p class="project-abstract">Estimates how firms across sectors adjust production and investment decisions in response to scheduled electricity rationing.</p>
         </div>
       </div>
 
@@ -164,7 +205,6 @@ html, body {
             <span class="project-location">🇿🇦 South Africa</span>
           </div>
           <p class="project-abstract">Examines how planned electricity outages alter criminal activity by reducing lighting, disrupting surveillance, and shifting the geography of crime.</p>
-          <!-- FULL ABSTRACT STORED HERE -->
         </div>
       </div>
 
@@ -177,7 +217,6 @@ html, body {
             <span class="project-location">🇿🇦 South Africa</span>
           </div>
           <p class="project-abstract">Traces how rainfall shocks flood mines and disrupt coal deliveries, reducing power plant availability and triggering load shedding — revealing how climate variability already threatens grid reliability today.</p>
-          <!-- FULL ABSTRACT STORED HERE -->
         </div>
       </div>
 
@@ -190,140 +229,115 @@ html, body {
             <span class="project-location">🇮🇩 Indonesia</span>
           </div>
           <p class="project-abstract">Studies how Indonesia's large-scale smart metering rollout affects payment compliance, consumption responses, and whether efficiency gains are distributed equitably across income groups.</p>
-          <!-- FULL ABSTRACT STORED HERE -->
         </div>
       </div>
+
     </div>
   </div>
 
-  <hr class="divider">
+ <hr class="divider">
 
-  <!-- ── TEAM ── -->
+  <!-- TEAM -->
   <div class="section-block">
     <h2 class="section-title">Team Members</h2>
     <div class="team-grid">
 
-<!-- Cassandra -->
-<div class="member-card">
-  <img class="card-photo" src="images/cassie.webp" alt="Cassandra Cole" width="68" height="68" loading="lazy">
-  <div class="card-info">
-    <div class="member-name">Cassandra Cole</div>
-    <span class="member-role">Postdoctoral Researcher</span>
-    <span class="member-edu">PhD, Harvard University &mdash; 2025</span>
-    <span class="member-location">🇨🇭 Switzerland</span>
-  </div>
-</div>
-
-<!-- Farhan -->
-<div class="member-card">
-  <img class="card-photo" src="images/farhan.jpeg" alt="Farhan Hussain" width="68" height="68" loading="lazy">
-  <div class="card-info">
-    <div class="member-name">M. Farhan Hussain</div>
-    <span class="member-role">Research Assistant</span>
-    <span class="member-edu">BSc Mechanical Engineering, ITB &mdash; Indonesia</span>
-    <span class="member-location">🇮🇩 Indonesia</span>
-  </div>
-</div>
-
-<!-- Joseph -->
-<div class="member-card">
-  <img class="card-photo" src="images/joseph-gozoya.webp" alt="Joseph Gozoya" width="68" height="68" loading="lazy">
-  <div class="card-info">
-    <div class="member-name">Joseph Gozoya</div>
-    <span class="member-role">PhD Student - Research Assistant</span>
-    <span class="member-edu">University of Pretoria</span>
-    <span class="member-location">🇿🇦 South Africa</span>
-  </div>
-</div>
-
-<!-- Blessings -->
-<div class="member-card">
-  <img class="card-photo" src="images/nkuna.png" alt="Blessings Nkuna" width="68" height="68" loading="lazy">
-  <div class="card-info">
-    <div class="member-name">Blessings Nkuna</div>
-    <span class="member-role">PhD Student - Research Assistant</span>
-    <span class="member-edu">University of Pretoria</span>
-    <span class="member-location">🇿🇦 South Africa</span>
-  </div>
-</div>
-
-      <!-- Coby -->
       <div class="member-card">
-        <div style="width:68px;height:68px;border-radius:9999px;background:var(--color-primary-light);display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:700;color:var(--color-primary);flex-shrink:0;">CT</div>
+        <img class="card-photo" src="images/cassie.webp" alt="Cassandra Cole" width="68" height="68" loading="lazy">
+        <div class="card-info">
+          <div class="member-name">Cassandra Cole</div>
+          <span class="member-role">Postdoctoral Researcher</span>
+          <span class="member-edu">PhD, Harvard University &mdash; 2025</span>
+          <span class="member-location">🇨🇭 Switzerland</span>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <img class="card-photo" src="images/farhan.jpeg" alt="Farhan Hussain" width="68" height="68" loading="lazy">
+        <div class="card-info">
+          <div class="member-name">M. Farhan Hussain</div>
+          <span class="member-role">Research Assistant</span>
+          <span class="member-edu">BSc Mechanical Engineering, ITB &mdash; Indonesia</span>
+          <span class="member-location">🇮🇩 Indonesia</span>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <img class="card-photo" src="images/joseph-gozoya.webp" alt="Joseph Gozoya" width="68" height="68" loading="lazy">
+        <div class="card-info">
+          <div class="member-name">Joseph Gozoya</div>
+          <span class="member-role">PhD Student - Research Assistant</span>
+          <span class="member-edu">University of Pretoria</span>
+          <span class="member-location">🇿🇦 South Africa</span>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <img class="card-photo" src="images/nkuna.png" alt="Blessings Nkuna" width="68" height="68" loading="lazy">
+        <div class="card-info">
+          <div class="member-name">Blessings Nkuna</div>
+          <span class="member-role">PhD Student - Research Assistant</span>
+          <span class="member-edu">University of Pretoria</span>
+          <span class="member-location">🇿🇦 South Africa</span>
+        </div>
+      </div>
+
+      <div class="member-card">
+        <div class="avatar">CT</div>
         <div class="card-info">
           <div class="member-name">Coby Tan</div>
           <span class="member-role">Bachelor Student - Research Assistant</span>
           <span class="member-edu">Economics &amp; Mathematics, College of the Holy Cross &mdash; United States</span>
-	<span class="member-location">🇺🇸 United States</span>
+          <span class="member-location">🇺🇸 United States</span>
         </div>
       </div>
 
+    </div>
+  </div>
+
+<hr class="divider">
+
+<!-- FUNDING & SUPPORTED BY -->
+<div class="section-block">
+
+  <!-- Funded by -->
+  <div style="margin-bottom: 32px;">
+    <div class="funding-col-title">Funded by</div>
+    <div class="logos-row">
+      <div class="logo-item">
+        <img src="images/snsf.png" alt="SNSF">
+      </div>
+      <div class="logo-item">
+        <img src="images/pedl.png" alt="PEDL">
+      </div>
+      <div class="logo-item">
+        <img src="images/jpal.png" alt="J-PAL KCAI">
+      </div>
+      <div class="logo-item">
+       <img src="images/predoc.png" alt="PREDOC" style="height:18px !important;">
+      </div>
+    </div>
+  </div>
+
+  <!-- Supported by -->
+  <div>
+    <div class="funding-col-title">Supported by</div>
+    <div class="logos-row">
+      <div class="logo-item">
+        <img src="images/capetown.png" alt="City of Cape Town" style="height:72px !important;">
+      </div>
+      <div class="logo-item">
+        <img src="images/pln.png" alt="PLN">
+      </div>
+      <div class="logo-item">
+        <img src="images/unuwider.png" alt="UNU-WIDER" style="height:42px !important;">
+      </div>
+      <div class="logo-item">
+        <img src="images/treasury.png" alt="SA National Treasury" style="height:42px !important;">
+      </div>
     </div>
   </div>
 
 </div>
-<!-- FUNDING & SUPPORTED BY -->
-<div class="page">
-  <div style="display:flex; flex-wrap:wrap; align-items:flex-start; gap:32px;">
-
-    <!-- Funded by -->
-    <div style="flex:1; min-width:200px;">
-      <h2 class="section-title" style="font-size:1rem; margin-bottom:14px;">Funded by</h2>
-      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:20px;">
-
-        <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
-          <img src="images/snsf.png" alt="SNSF" style="height:32px; object-fit:contain; opacity:0.85;">
-          <span style="font-size:0.68rem; color:#aaa; font-family:'DM Sans',sans-serif; text-align:center; max-width:100px;">Swiss National Science Foundation</span>
-        </div>
-
-        <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
-          <img src="images/pedl.png" alt="PEDL" style="height:32px; object-fit:contain; opacity:0.85;">
-          <span style="font-size:0.68rem; color:#aaa; font-family:'DM Sans',sans-serif; text-align:center; max-width:100px;">Private Enterprise Development in Low-Income Countries</span>
-        </div>
-
-        <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
-          <img src="images/jpal.png" alt="J-PAL KCAI" style="height:32px; object-fit:contain; opacity:0.85;">
-          <span style="font-size:0.68rem; color:#aaa; font-family:'DM Sans',sans-serif; text-align:center; max-width:100px;">J-PAL King Climate Action Initiative</span>
-        </div>
-
-		 </div>
-			<div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
- 			 <img src="images/predoc.png" alt="PREDOC.org" style="height:15px; object-fit:contain; opacity:0.85;">
- 			 <span style="font-size:0.68rem; color:#aaa; font-family:'DM Sans',sans-serif; text-align:center; max-width:100px;">PREDOC.org</span>
-		</div>
-      </div>
-    </div>
-
-
-    <!-- Supported by -->
-    <div style="flex:1; min-width:200px;">
-      <h2 class="section-title" style="font-size:1rem; margin-bottom:14px;">Supported by</h2>
-      <div style="display:flex; flex-wrap:wrap; align-items:center; gap:20px;">
-
-        <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
-          <img src="images/capetown.png" alt="City of Cape Town" style="height:32px; object-fit:contain; opacity:0.85;">
-          <span style="font-size:0.68rem; color:#aaa; font-family:'DM Sans',sans-serif; text-align:center; max-width:100px;">City of Cape Town</span>
-        </div>
-
-        <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
-          <img src="images/pln.png" alt="PLN" style="height:32px; object-fit:contain; opacity:0.85;">
-          <span style="font-size:0.68rem; color:#aaa; font-family:'DM Sans',sans-serif; text-align:center; max-width:100px;">PLN — Indonesia State Electricity</span>
-        </div>
-
-        <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
-          <img src="images/unuwider.png" alt="UNU-WIDER" style="height:32px; object-fit:contain; opacity:0.85;">
-          <span style="font-size:0.68rem; color:#aaa; font-family:'DM Sans',sans-serif; text-align:center; max-width:100px;">UNU-WIDER</span>
-        </div>
-
-        <div style="display:flex; flex-direction:column; align-items:center; gap:5px;">
-          <img src="images/treasury.png" alt="SA National Treasury" style="height:32px; object-fit:contain; opacity:0.85;">
-          <span style="font-size:0.68rem; color:#aaa; font-family:'DM Sans',sans-serif; text-align:center; max-width:100px;">South Africa National Treasury</span>
-        </div>
-
-      </div>
-    </div>
-
-  </div>
-
 </body>
 </html>
